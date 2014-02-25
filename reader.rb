@@ -1,11 +1,20 @@
+require 'sqlite3'
 require 'json'
 
 if ARGV[0].nil?
   exit 1
 end
 
-f = File.open(ARGV[0], "r")
+puts "Reading a  database called #{ARGV[0]}"
 
-contents = JSON.parse(f.read)
+db = SQLite3::Database.new( ARGV[0] )
 
-puts contents.length
+
+
+rows = db.execute("SELECT * FROM twitter_data;")
+#rows.each do |row|
+#  parsed = JSON.parse(row[1])
+#  puts parsed['text']
+#end
+
+puts rows.length

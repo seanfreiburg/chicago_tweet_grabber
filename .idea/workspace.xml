@@ -25,25 +25,16 @@
       <file leaf-file-name="grabber.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/grabber.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="33" selection-start="840" selection-end="840" vertical-scroll-proportion="0.5762082" vertical-offset="0" max-vertical-offset="807">
+            <state line="34" column="20" selection-start="861" selection-end="861" vertical-scroll-proportion="0.6319703" vertical-offset="0" max-vertical-offset="807">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="last_file.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/last_file.txt">
+      <file leaf-file-name="create_db.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/create_db.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="0" selection-start="19" selection-end="19" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="165">
+            <state line="10" column="23" selection-start="154" selection-end="154" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
               <folding />
             </state>
           </provider>
@@ -61,7 +52,7 @@
       <file leaf-file-name="reader.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reader.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="126" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
+            <state line="17" column="1" selection-start="275" selection-end="275" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
               <folding />
             </state>
           </provider>
@@ -70,7 +61,7 @@
       <file leaf-file-name="frequency.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frequency.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="46" selection-start="477" selection-end="477" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
+            <state line="39" column="43" selection-start="700" selection-end="700" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="675">
               <folding />
             </state>
           </provider>
@@ -86,11 +77,12 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/reader.rb" />
         <option value="$PROJECT_DIR$/test.rb" />
         <option value="$PROJECT_DIR$/last_file.txt" />
-        <option value="$PROJECT_DIR$/grabber.rb" />
+        <option value="$PROJECT_DIR$/create_db.rb" />
         <option value="$PROJECT_DIR$/frequency.rb" />
+        <option value="$PROJECT_DIR$/reader.rb" />
+        <option value="$PROJECT_DIR$/grabber.rb" />
       </list>
     </option>
   </component>
@@ -182,6 +174,26 @@
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="DRB" VALUE="false" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="ZEUS" VALUE="false" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="FULL_BACKTRACE" VALUE="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="RubyRunConfigurationType" factoryName="Ruby">
+      <module name="" />
+      <RUBY_RUN_CONFIG NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
+      <RUBY_RUN_CONFIG NAME="WORK DIR" VALUE="" />
+      <RUBY_RUN_CONFIG NAME="SHOULD_USE_SDK" VALUE="false" />
+      <RUBY_RUN_CONFIG NAME="ALTERN_SDK_NAME" VALUE="" />
+      <RUBY_RUN_CONFIG NAME="myPassParentEnvs" VALUE="true" />
+      <envs />
+      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
+      <EXTENSION ID="JRubyRunConfigurationExtension" NailgunExecEnabled="false" />
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov">
+        <COVERAGE_PATTERN ENABLED="true">
+          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
+        </COVERAGE_PATTERN>
+      </EXTENSION>
+      <EXTENSION ID="org.jetbrains.plugins.ruby.motion.run.MotionSimulatorRunExtension" />
+      <RUBY_RUN_CONFIG NAME="SCRIPT_PATH" VALUE="" />
+      <RUBY_RUN_CONFIG NAME="SCRIPT_ARGS" VALUE="" />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
@@ -295,13 +307,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="19" selection-end="19" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="165">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/results.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
@@ -311,28 +316,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/last_file.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
+        <state line="0" column="23" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="807">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader.rb">
+    <entry file="file://$PROJECT_DIR$/create_db.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="126" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
+        <state line="10" column="23" selection-start="154" selection-end="154" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/frequency.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="46" selection-start="477" selection-end="477" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
+        <state line="39" column="43" selection-start="700" selection-end="700" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="675">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="1" selection-start="275" selection-end="275" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grabber.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="33" selection-start="840" selection-end="840" vertical-scroll-proportion="0.5762082" vertical-offset="0" max-vertical-offset="807">
+        <state line="34" column="20" selection-start="861" selection-end="861" vertical-scroll-proportion="0.6319703" vertical-offset="0" max-vertical-offset="807">
           <folding />
         </state>
       </provider>

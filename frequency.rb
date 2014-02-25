@@ -1,16 +1,21 @@
+require 'sqlite3'
 require 'json'
 
 if ARGV[0].nil?
   exit 1
 end
 
-f = File.open(ARGV[0], "r")
+puts "Reading a  database called #{ARGV[0]}"
 
-contents = JSON.parse(f.read)
+db = SQLite3::Database.new(ARGV[0])
+
 
 frequencies = Hash.new
-contents.each do |tweet|
-  words = tweet['text'].split " "
+rows = db.execute("SELECT * FROM twitter_data;")
+rows.each do |row|
+  parsed = JSON.parse(row[1])
+  tweet = parsed['text']
+  words = tweet.split " "
   words.each do |word|
     if frequencies.has_key?(word)
       frequencies[word] += 1
@@ -21,9 +26,15 @@ contents.each do |tweet|
   end
 end
 
-frequencies = frequencies.sort_by {|key, value| value}.reverse!
+frequencies = frequencies.sort_by { |key, value| value }.reverse!
+
+if ARGV[1]
+  first_n = frequencies[0..ARGV[1].to_i]
+else
+  first_n = frequencies[0..20]
+end
 
 
-frequencies.each do |key, value|
+first_n.each do |key, value|
   puts key + ": " + value.to_s if value > 3
 end

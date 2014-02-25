@@ -1,5 +1,6 @@
 require 'twitter'
 require 'json'
+require 'sqlite3'
 
 
 if ARGV[0].nil?
@@ -7,7 +8,8 @@ if ARGV[0].nil?
 end
 
 puts "Writing to #{ARGV[0]}"
-f = File.new(ARGV[0], "w+")
+
+db = SQLite3::Database.new( ARGV[0] )
 
 
 client = Twitter::Streaming::Client.new do |config|
@@ -23,14 +25,16 @@ end
 #end
 tweets = []
 i = 0
+
+ins = db.prepare('insert into twitter_data (data) values (?)')
+
+
 client.filter(locations: '-91.51307899999999,36.970298,-87.01993499999999,42.508337999999995') do |object|
 
   if object.is_a?(Twitter::Tweet)
-    puts "Writing #{object.text}"
-    tweets << object.to_h
+    puts object.text
+    ins.execute(object.to_h.to_json.to_s)
   end
-  break if i >= ARGV[1].to_i
+  break if  ARGV[1] == 'limit' && i >= ARGV[2].to_i
   i +=1
 end
-
-f.write(tweets.to_json)
