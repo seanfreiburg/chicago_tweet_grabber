@@ -1,12 +1,14 @@
 import collections, itertools
 import nltk.metrics
-from nltk.classify import WekaClassifier
+import re
+from nltk.classify import NaiveBayesClassifier
 from nltk.corpus import movie_reviews
 from nltk.collocations import BigramCollocationFinder
 from nltk.metrics import BigramAssocMeasures
 from nltk.probability import FreqDist, ConditionalFreqDist
 
 bestwords = set()
+STOPWORDS_FILE = "./files/stopwords.txt"
 
 def train(feature):
     negids = movie_reviews.fileids('neg')
@@ -16,7 +18,8 @@ def train(feature):
     posfeatures = [(feature(movie_reviews.words(fileids=[f])), 'pos') for f in posids]
 
     trainfeatures = negfeatures + posfeatures
-    classifier = WekaClassifier.train(trainfeatures)
+    classifier = NaiveBayesClassifier.train(trainfeatures)
+
     return classifier
 
 def best_word_features(words):
@@ -29,6 +32,7 @@ def best_bigram_word_features(words, score_fn=BigramAssocMeasures.chi_sq, n=200)
     bigrams = bigram_finder.nbest(score_fn, n)
     d = dict([(bigram, True) for bigram in bigrams])
     d.update(best_word_features(words))
+
     return d
 
 def setup():
@@ -38,11 +42,11 @@ def setup():
     label_word_fd = ConditionalFreqDist()
 
     for word in movie_reviews.words(categories=['pos']):
-        word_fd.inc(word.lower())
+        word_fd.inc(word.strip('\'"?,.').lower())
         label_word_fd['pos'].inc(word.lower())
 
     for word in movie_reviews.words(categories=['neg']):
-        word_fd.inc(word.lower())
+        word_fd.inc(word.strip('\'"?,.').lower())
         label_word_fd['neg'].inc(word.lower())
 
     pos_word_count = label_word_fd['pos'].N()
@@ -62,18 +66,32 @@ def setup():
     bestwords = set([w for w, s in best])
     return train(best_bigram_word_features)
 
+def get_stop_words():
+    stop_words = []
+
+    with open(STOPWORDS_FILE) as f:
+        stop_words = [word.strip('\n') for word in f]
+
+    return stop_words
+
+def classify_tweets(classifier):
+    f = open('out.txt', 'r')
+    stop_words = get_stop_words()
+
+    for line in f:
+        tweet_dict = dict()
+        for word in line.split():
+            if word in stop_words:
+                continue
+            tweet_dict[word.strip('\'"?,.').lower()] = True
+        observed = classifier.classify(tweet_dict)
+        print line + ": " + str(observed)
+
 def main():
     classifier = setup()
     print "Finished running the classifier..."
-    f = open('out.txt', 'r')
-    
-    for line in f:
-        tweet_dict = dict()
-        words = line.split(' ')
-        for word in words:
-            tweet_dict[word.lower()] = True
-        observed = classifier.classify(tweet_dict)  
-        print line + ": " + str(observed)
+
+    classify_tweets(classifier)
 
 if __name__ == '__main__':
     main()
