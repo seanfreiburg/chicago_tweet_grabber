@@ -14,8 +14,10 @@ f = File.new('out.txt', 'w+')
 limit = 100
 
 rows = db.execute("SELECT * FROM twitter_data LIMIT #{limit};")
+data = {}
 rows.each do |row|
   parsed = JSON.parse(row[1])
-  puts parsed['text']
-  f.write(parsed['text'] + "\n")
+  data['text'] = parsed['text']
+  data['created_at'] = parsed['created_at']
+  f.write(data.to_json+ "\n")
 end
