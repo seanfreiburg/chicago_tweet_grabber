@@ -26,14 +26,15 @@ end
 tweets = []
 i = 0
 
-ins = db.prepare('insert into twitter_data (data) values (?)')
+ins = db.prepare('insert into twitter_data (text,hour,data) values (?,?,?)')
 
 
 client.filter(locations: '-91.51307899999999,36.970298,-87.01993499999999,42.508337999999995') do |object|
 
   if object.is_a?(Twitter::Tweet)
     puts object.text
-    ins.execute(object.to_h.to_json.to_s)
+    hour =  object.created_at.hour
+    ins.execute(object.text, hour, object.to_h.to_json.to_s)
   end
   break if  ARGV[1] == 'limit' && i >= ARGV[2].to_i
   i +=1

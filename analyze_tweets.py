@@ -88,10 +88,10 @@ def classify_tweets(classifier):
         tweet_dict = dict()
         line_json = json.loads(line)
         text = line_json['text']
-        time = datetime.strptime(' '.join(line_json['created_at'].split()[:-2]), '%a %b %d %H:%M:%S')
+        hour = line_json['created_at']
 
-        if time.hour not in result:
-            result[time.hour] = []
+        if hour not in result:
+            result[hour] = []
 
         for word in text.split():
             word = word.lower()
@@ -105,7 +105,7 @@ def classify_tweets(classifier):
             tweet_dict[word] = True
 
         score = classifier.classify(tweet_dict)
-        result[time.hour].append([text, score])
+        result[hour].append([text, score])
 
     return result
 
