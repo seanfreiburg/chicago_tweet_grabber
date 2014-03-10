@@ -1,6 +1,9 @@
 import collections, itertools
-import nltk.metrics
 import re
+import json
+from datetime import datetime
+
+import nltk.metrics
 from nltk.classify import NaiveBayesClassifier
 from nltk.corpus import movie_reviews
 from nltk.collocations import BigramCollocationFinder
@@ -9,6 +12,8 @@ from nltk.probability import FreqDist, ConditionalFreqDist
 
 bestwords = set()
 STOPWORDS_FILE = "./files/stopwords.txt"
+INPUT_FILE='out.txt'
+OUTPUT = "./files/output.json"
 
 def train(feature):
     negids = movie_reviews.fileids('neg')
@@ -77,21 +82,72 @@ def get_stop_words():
 def classify_tweets(classifier):
     f = open('out.txt', 'r')
     stop_words = get_stop_words()
+    result = {}
 
     for line in f:
         tweet_dict = dict()
-        for word in line.split():
+        line_json = json.loads(line)
+        text = line_json['text']
+        time = datetime.strptime(' '.join(line_json['created_at'].split()[:-2]), '%a %b %d %H:%M:%S')
+
+        if time.hour not in result:
+            result[time.hour] = []
+
+        for word in text.split():
+            word = word.lower()
             if word in stop_words:
                 continue
-            tweet_dict[word.strip('\'"?,.').lower()] = True
-        observed = classifier.classify(tweet_dict)
-        print line + ": " + str(observed)
+
+            word = word.strip('\'"?,.')
+            if len(word) == 0:
+                continue
+
+            tweet_dict[word] = True
+
+        score = classifier.classify(tweet_dict)
+        result[time.hour].append([text, score])
+
+    return result
+
+def print_result(classified_tweets):
+    stop_words = get_stop_words()
+
+    with open(OUTPUT, 'w') as hour_file:
+        for time, tweets in classified_tweets.items():
+            score = 0
+            word_counts = {}
+
+            for tweet in tweets:
+                for word in tweet[0].split():
+                    word = word.lower()
+                    if word in stop_words:
+                        continue
+
+                    word = word.strip('\'"?,.')
+                    if len(word) == 0:
+                        continue
+
+                    if word not in word_counts:
+                        word_counts[word] = 1
+                    else:
+                        word_counts[word] += 1
+
+                if tweet[1] == "neg":
+                    score -= 1
+                else:
+                    score += 1
+
+            common_words = sorted(word_counts.iteritems(), key=lambda(k, v): v, reverse=True)[:5]
+            print "common_words:", common_words
+
+            line = json.dumps({"time": time, "score": score, "common words": [_[0] for _ in common_words]},
+                indent=4, separators=(',', ': '))
+            hour_file.write(line)
 
 def main():
     classifier = setup()
-    print "Finished running the classifier..."
-
-    classify_tweets(classifier)
+    classified_tweets = classify_tweets(classifier)
+    print_result(classified_tweets)
 
 if __name__ == '__main__':
     main()
